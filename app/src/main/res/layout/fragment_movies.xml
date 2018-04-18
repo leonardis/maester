@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.home.fragments.MoviesFragment"
+    android:background="@color/colorPrimaryDark">
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Populares"
+          android:textSize="16sp"
+          android:layout_marginLeft="20dp"
+          android:layout_marginRight="20dp"
+          android:layout_marginBottom="20dp"
+          android:fontFamily="@font/montserrat_regular"
+          android:textStyle="bold"
+          />
+
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/popularMovieRv"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="20dp"
+          app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+          android:orientation="horizontal"
+          tools:listitem="@layout/movie_item"
+          />
+
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Mejores puntuadas"
+          android:textSize="16sp"
+          android:layout_margin="20dp"
+          android:fontFamily="@font/montserrat_regular"
+          android:textStyle="bold"
+          />
+
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/valuedMovieRv"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="20dp"
+          app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+          android:orientation="horizontal"
+          tools:listitem="@layout/movie_item"
+          />
+
+
+      <TextView
+          android:id="@+id/nextTv"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Proximos estrenos"
+          android:textSize="16sp"
+          android:layout_margin="20dp"
+          android:fontFamily="@font/montserrat_regular"
+          android:textStyle="bold"
+          />
+
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/upcomingMovieRv"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="20dp"
+          app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+          android:orientation="horizontal"
+          tools:listitem="@layout/movie_item"
+          />
+
+    </LinearLayout>
+
+  </ScrollView>
+
+</FrameLayout>

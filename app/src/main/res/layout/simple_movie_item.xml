@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="125dp"
+    android:layout_height="150dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movieItem"
+    android:orientation="vertical"
+    android:layout_marginRight="10dp">
+
+  <com.facebook.drawee.view.SimpleDraweeView
+      android:id="@+id/movieImageView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:placeholderImage="@drawable/placeholder"
+      app:roundedCornerRadius="10dp"/>
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:background="@drawable/background_gradient"
+      android:layout_alignParentBottom="true"
+      android:rotation="180"/>
+
+  <TextView
+      android:id="@+id/movieTitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="16sp"
+      android:layout_margin="6dp"
+      android:fontFamily="@font/montserrat_regular"
+      android:singleLine="true"
+      android:marqueeRepeatLimit="marquee_forever"
+      android:ellipsize="marquee"
+      tools:text="Avengers"
+      android:textColor="@color/white"
+      android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

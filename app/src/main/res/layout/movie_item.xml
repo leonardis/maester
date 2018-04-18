@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="125dp"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movieItem"
+    android:orientation="vertical"
+    android:layout_marginRight="10dp">
+
+  <com.facebook.drawee.view.SimpleDraweeView
+      android:id="@+id/movieImageView"
+      android:layout_width="125dp"
+      android:layout_height="150dp"
+      app:placeholderImage="@drawable/placeholder"
+      app:roundedCornerRadius="10dp"/>
+
+  <TextView
+      android:id="@+id/movieTitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="16sp"
+      android:layout_marginTop="6dp"
+      android:fontFamily="@font/montserrat_regular"
+      android:singleLine="true"
+      android:marqueeRepeatLimit="marquee_forever"
+      android:ellipsize="marquee"
+      tools:text="Avengers"/>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginTop="2dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/lightBlue"
+        android:text="Puntuacion"/>
+
+    <TextView
+        android:id="@+id/movieVotes"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        android:background="@drawable/background_rounded"
+        android:layout_marginLeft="5dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        tools:text="9.8"/>
+
+  </LinearLayout>
+
+  <TextView
+      android:id="@+id/movieDate"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:textSize="12sp"
+      android:textColor="@color/lightBlue"
+      android:textAlignment="center"
+      android:layout_marginTop="2dp"
+      android:gravity="center_vertical"
+      tools:text="12-04-2018"/>
+
+</LinearLayout>
