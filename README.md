@@ -4,6 +4,10 @@ Maester es una aplicación Android desarrollada para la visualización básica d
 
 La data de la app fue proporcionada por: [The Movie Database API](http://themoviedb.org).
 
+<img src="https://github.com/leonardis/maester/blob/master/screnshots/home.png" width="200px" style="display:inline-block"/>
+<img src="https://github.com/leonardis/maester/blob/master/screnshots/search.png" width="200px" style="display:inline-block"/>
+<img src="https://github.com/leonardis/maester/blob/master/screnshots/detail.png" width="200px" style="display:inline-block"/>
+
 ## Arquitectura
 
 La arquitectura de la app estuvo basada en MVP con la utilización de las siguientes librerias:
