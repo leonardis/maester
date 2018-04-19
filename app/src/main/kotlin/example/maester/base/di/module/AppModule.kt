@@ -30,7 +30,7 @@ class AppModule(val application: Application) {
     @Provides
     @Singleton
     fun providesSharedPref(gson: Gson) = SharedPreferencesHelper(application.getSharedPreferences("Sp", Context
-            .MODE_PRIVATE))
+            .MODE_PRIVATE), gson)
 
     @Provides
     @Singleton

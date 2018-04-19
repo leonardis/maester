@@ -1,8 +1,11 @@
 package example.maester.ui.home.presenter
 
 import example.maester.api.Endpoints
+import example.maester.base.App
 import example.maester.base.mvp.BasePresenter
+import example.maester.models.SeriesResult
 import example.maester.utils.SchedulerProvider
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -12,64 +15,80 @@ class SeriesPresenter @Inject constructor(var api: Endpoints, disposable: Compos
 
     fun getPopulars() {
         view?.showProgress()
-        disposable.add(api.popularSeries()
+        Observable
+                .concatArray(getSeriesFromDb(), getPopularsFromApi())
                 .subscribeOn(scheduler.io())
                 .observeOn(scheduler.ui())
-                .subscribe(
-                        { result ->
-                            view?.hideProgress()
-                            view?.onResponse(result.seriesResults, 1)
-
-                            if (result.seriesResults == null || result.seriesResults.isEmpty()) {
-                                view?.noResult()
-                            }
-                        },
-                        { _ ->
-                            view?.hideProgress()
-                            view?.onError()
-                        })
-        )
+                .subscribe({ populars ->
+                    view?.hideProgress()
+                    view?.onResponse(populars, 1)
+                }, { _ ->
+                    view?.hideProgress()
+                    view?.onError()
+                })
     }
 
     fun getTopRated() {
         view?.showProgress()
-        disposable.add(api.topRatedSeries()
+        Observable
+                .concatArray(getSeriesFromDb(), getTopRatedFromApi())
                 .subscribeOn(scheduler.io())
                 .observeOn(scheduler.ui())
-                .subscribe(
-                        { result ->
-                            view?.hideProgress()
-                            view?.onResponse(result.seriesResults, 2)
+                .subscribe({ populars ->
+                    view?.hideProgress()
+                    view?.onResponse(populars, 2)
 
-                            if (result.seriesResults == null || result.seriesResults.isEmpty()) {
-                                view?.noResult()
-                            }
-                        },
-                        { _ ->
-                            view?.hideProgress()
-                            view?.onError()
-                        })
-        )
+                }, { _ ->
+                    view?.hideProgress()
+                    view?.onError()
+                })
     }
 
     fun getAiringToday() {
         view?.showProgress()
-        disposable.add(api.airingToday()
+        Observable
+                .concatArray(getSeriesFromDb(), getAiringFromApi())
                 .subscribeOn(scheduler.io())
                 .observeOn(scheduler.ui())
-                .subscribe(
-                        { result ->
-                            view?.hideProgress()
-                            view?.onResponse(result.seriesResults, 3)
+                .subscribe({ populars ->
+                    view?.hideProgress()
+                    view?.onResponse(populars, 3)
 
-                            if (result.seriesResults == null || result.seriesResults.isEmpty()) {
-                                view?.noResult()
-                            }
-                        },
-                        { _ ->
-                            view?.hideProgress()
-                            view?.onError()
-                        })
-        )
+                }, { error ->
+                    error.printStackTrace()
+                    view?.hideProgress()
+                    view?.onError()
+                })
+    }
+
+    private fun getPopularsFromApi(): Observable<List<SeriesResult>> {
+        return api.popularSeries()
+                .map { it -> it.seriesResults }
+                .doOnNext { storeMoviesOnDb(it) }
+    }
+
+    private fun getTopRatedFromApi(): Observable<List<SeriesResult>> {
+        return api.topRatedSeries()
+                .map { it -> it.seriesResults }
+                .doOnNext { storeMoviesOnDb(it) }
+    }
+
+    private fun getAiringFromApi(): Observable<List<SeriesResult>> {
+        return api.airingToday()
+                .map { it -> it.seriesResults }
+                .doOnNext { storeMoviesOnDb(it) }
+    }
+
+    private fun getSeriesFromDb(): Observable<List<SeriesResult>> {
+        return App.database!!
+                .getSeriesResultsDao()
+                .getAllSeries()
+                .toObservable()
+    }
+
+    private fun storeMoviesOnDb(seriesResult: List<SeriesResult>) {
+        Observable.fromCallable { App.database!!.getSeriesResultsDao().insertAll(seriesResult) }
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.ui())
     }
 }

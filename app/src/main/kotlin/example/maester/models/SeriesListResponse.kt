@@ -1,4 +1,6 @@
 package example.maester.models
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class SeriesListResponse(
@@ -8,18 +10,17 @@ data class SeriesListResponse(
 		@SerializedName("results") val seriesResults: List<SeriesResult>
 )
 
+@Entity(tableName = "seriesresult")
 data class SeriesResult(
-		@SerializedName("original_name") val originalName: String,
-		@SerializedName("genre_ids") val genreIds: List<Int>,
-		@SerializedName("name") val name: String,
-		@SerializedName("popularity") val popularity: Double,
-		@SerializedName("origin_country") val originCountry: List<String>,
-		@SerializedName("vote_count") val voteCount: Int,
-		@SerializedName("first_air_date") val firstAirDate: String,
-		@SerializedName("backdrop_path") val backdropPath: String,
-		@SerializedName("original_language") val originalLanguage: String,
-		@SerializedName("id") val id: Int,
-		@SerializedName("vote_average") val voteAverage: Double,
-		@SerializedName("overview") val overview: String,
-		@SerializedName("poster_path") val posterPath: String
+        @SerializedName("original_name") val originalName: String,
+        @SerializedName("name") val name: String,
+        @SerializedName("popularity") val popularity: Double,
+        @SerializedName("vote_count") val voteCount: Int,
+        @SerializedName("first_air_date") val firstAirDate: String,
+        @SerializedName("backdrop_path") val backdropPath: String,
+        @SerializedName("original_language") val originalLanguage: String,
+        @PrimaryKey @SerializedName("id") val id: Int,
+        @SerializedName("vote_average") val voteAverage: Double,
+        @SerializedName("overview") val overview: String,
+        @SerializedName("poster_path") val posterPath: String
 )

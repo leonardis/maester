@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import com.burakeregar.easiestgenericrecycleradapter.base.GenericAdapterBuilder
 import com.burakeregar.easiestgenericrecycleradapter.base.GenericRecyclerAdapter
 import example.maester.R
+import example.maester.base.App
 import example.maester.base.BaseFragment
 import example.maester.models.MoviesResult
 import example.maester.ui.detail.DetailActivity
@@ -22,9 +23,12 @@ import example.maester.ui.home.presenter.MoviesPresenter
 import example.maester.ui.home.presenter.MoviesView
 import example.maester.ui.home.viewholders.MovieViewHolder
 import example.maester.utils.DEBUG_TAG
+import example.maester.utils.MaesterDatabase
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
+
+
 
 class MoviesFragment() : BaseFragment(), MoviesView {
 
@@ -67,7 +71,7 @@ class MoviesFragment() : BaseFragment(), MoviesView {
             val fragment = MoviesFragment(context)
             val args = Bundle()
             args.putInt(PAGE_NUM, page)
-            fragment.setArguments(args)
+            fragment.arguments = args
             return fragment
         }
     }
@@ -87,6 +91,30 @@ class MoviesFragment() : BaseFragment(), MoviesView {
             2 -> topRatedAdapter.setList(list)
             3 -> upcomingAdapter.setList(list)
         }
+
+
+        /*Thread(Runnable {
+
+            val movies = App.database!!.getMovieResultsDao().getAllMovies()
+            for (movie in list) {
+                if ()
+                for (mMovie in movies) {
+
+                }
+                App.database!!.getMovieResultsDao().insert(movie)
+            }
+
+            App.database!!.getMovieResultsDao().insertAll(list)
+
+            val products = App.database!!.getMovieResultsDao().getAllMovies()
+            if (products.isEmpty()) {
+                Log.d(DEBUG_TAG, "EMPTY")
+                //retrieveProducts()
+            } else {
+                //populateProducts(products)
+                Log.d(DEBUG_TAG, "NOT EMPTY")
+            }
+        }).start()*/
     }
 
     override fun showProgress() {
