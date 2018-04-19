@@ -8,5 +8,5 @@ import javax.inject.Inject
 
 class HomePresenter @Inject constructor(disposable: CompositeDisposable, scheduler: SchedulerProvider) : BasePresenter<MoviesView>(disposable, scheduler) {
 
-    //TODO save data
+    //TODO Methods from presenter
 }

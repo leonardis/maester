@@ -1,4 +1,4 @@
-package example.maester.ui.detail.presenter
+package example.maester.ui.search.presenter
 
 import example.maester.api.Endpoints
 import example.maester.base.mvp.BasePresenter
@@ -6,13 +6,14 @@ import example.maester.utils.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class DetailPresenter @Inject constructor(var api: Endpoints, disposable: CompositeDisposable,
-                                          scheduler: SchedulerProvider) : BasePresenter<DetailView>
+class SearchPresenter @Inject constructor(var api: Endpoints, disposable: CompositeDisposable,
+                                          scheduler: SchedulerProvider) : BasePresenter<SearchView>
 (disposable, scheduler) {
 
-    fun getMovieDetail(id: String) {
+    fun searchMovie(query: String) {
         view?.showProgress()
-        disposable.add(api.movieDetail(id)
+        disposable.add(api.searchMovie(query)
+                .map { it -> it.moviesResults }
                 .subscribeOn(scheduler.io())
                 .observeOn(scheduler.ui())
                 .subscribe(
@@ -31,37 +32,17 @@ class DetailPresenter @Inject constructor(var api: Endpoints, disposable: Compos
         )
     }
 
-    fun getSimilarMovies(id: String) {
+    fun searchSeries(query: String) {
         view?.showProgress()
-        disposable.add(api.similarMovies(id)
+        disposable.add(api.searchSeries(query)
+                .map{ it -> it.seriesResults }
                 .subscribeOn(scheduler.io())
                 .observeOn(scheduler.ui())
                 .subscribe(
-                        { result ->
+                        { series ->
                             view?.hideProgress()
-                            view?.onSimilarMovieResponse(result.moviesResults)
-
-                            if (result.moviesResults == null || result.moviesResults.isEmpty()) {
-                                view?.noResult()
-                            }
-                        },
-                        { _ ->
-                            view?.hideProgress()
-                            view?.onError()
-                        })
-        )
-    }
-
-    fun getSerieDetail(id: String) {
-        view?.showProgress()
-        disposable.add(api.serieDetail(id)
-                .subscribeOn(scheduler.io())
-                .observeOn(scheduler.ui())
-                .subscribe(
-                        { serie ->
-                            view?.hideProgress()
-                            if (serie != null) {
-                                view?.onSerieResponse(serie)
+                            if (series != null) {
+                                view?.onSeriesResponse(series)
                             } else {
                                 view?.noResult()
                             }

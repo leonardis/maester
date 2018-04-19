@@ -2,11 +2,13 @@ package example.maester.api
 
 import example.maester.models.MoviesListResponse
 import example.maester.models.Movie
+import example.maester.models.Serie
 import example.maester.models.SeriesListResponse
 import example.maester.utils.API_KEY
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface Endpoints {
 
@@ -33,4 +35,13 @@ interface Endpoints {
 
     @GET("tv/airing_today?&api_key=$API_KEY&language=en-US&page=1")
     fun airingToday(): Observable<SeriesListResponse>
+
+    @GET("tv/{id}?api_key=$API_KEY&language=en-US")
+    fun serieDetail(@Path("id") id: String): Observable<Serie>
+
+    @GET("search/movie?&api_key=$API_KEY&language=en-US&page=1")
+    fun searchMovie(@Query("query")query: String): Observable<MoviesListResponse>
+
+    @GET("search/tv?&api_key=$API_KEY&language=en-US&page=1")
+    fun searchSeries(@Query("query")query: String): Observable<SeriesListResponse>
 }

@@ -12,7 +12,7 @@
   <com.facebook.drawee.view.SimpleDraweeView
       android:id="@+id/movieImageView"
       android:layout_width="125dp"
-      android:layout_height="150dp"
+      android:layout_height="170dp"
       app:placeholderImage="@drawable/placeholder"
       app:roundedCornerRadius="10dp"/>
 

@@ -142,9 +142,10 @@ class SeriesFragment() : BaseFragment(), SeriesView {
     }
 
     @Subscribe
-    fun onRowClicked(item: MoviesResult) {
+    fun onRowClicked(item: SeriesResult) {
         val intent = Intent(context, DetailActivity::class.java)
         intent.putExtra("id", item.id)
+        intent.putExtra("page", 1)
         context!!.startActivity(intent)
     }
 }

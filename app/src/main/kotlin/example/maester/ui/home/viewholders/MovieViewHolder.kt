@@ -21,7 +21,7 @@ class MovieViewHolder(itemView: View?) : GenericViewHolder<Any>(itemView) {
             movieDate?.text = mItem.releaseDate.substring(0, 4)
             movieVotes?.text = mItem.voteAverage.toString()
             movieItem.setOnClickListener {
-                EventBus.getDefault().post(RowClickEvent(mItem))
+                EventBus.getDefault().post(mItem)
             }
         }
     }

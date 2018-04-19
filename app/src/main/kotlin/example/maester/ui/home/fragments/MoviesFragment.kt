@@ -91,30 +91,6 @@ class MoviesFragment() : BaseFragment(), MoviesView {
             2 -> topRatedAdapter.setList(list)
             3 -> upcomingAdapter.setList(list)
         }
-
-
-        /*Thread(Runnable {
-
-            val movies = App.database!!.getMovieResultsDao().getAllMovies()
-            for (movie in list) {
-                if ()
-                for (mMovie in movies) {
-
-                }
-                App.database!!.getMovieResultsDao().insert(movie)
-            }
-
-            App.database!!.getMovieResultsDao().insertAll(list)
-
-            val products = App.database!!.getMovieResultsDao().getAllMovies()
-            if (products.isEmpty()) {
-                Log.d(DEBUG_TAG, "EMPTY")
-                //retrieveProducts()
-            } else {
-                //populateProducts(products)
-                Log.d(DEBUG_TAG, "NOT EMPTY")
-            }
-        }).start()*/
     }
 
     override fun showProgress() {
@@ -169,6 +145,7 @@ class MoviesFragment() : BaseFragment(), MoviesView {
     fun onRowClicked(item: MoviesResult) {
         val intent = Intent(context, DetailActivity::class.java)
         intent.putExtra("id", item.id)
+        intent.putExtra("page", 0)
         context!!.startActivity(intent)
     }
 }

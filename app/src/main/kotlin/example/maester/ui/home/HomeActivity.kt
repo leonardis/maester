@@ -1,6 +1,8 @@
 package example.maester.ui.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import example.maester.R
 import example.maester.base.BaseActivity
 import example.maester.base.adapter.PageAdapter
@@ -9,20 +11,22 @@ import example.maester.ui.home.di.DaggerHomeActivityComponent
 import example.maester.ui.home.di.HomeActivityModule
 import example.maester.ui.home.fragments.MoviesFragment
 import example.maester.ui.home.fragments.SeriesFragment
-import example.maester.utils.SharedPreferencesHelper
+import example.maester.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.main_activity.*
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.main_toolbar.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class HomeActivity : BaseActivity(), BaseView {
-
-    @Inject
-    lateinit var spHelper: SharedPreferencesHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-
         setupPageAdapter()
+
+        searchButton.setOnClickListener {
+            EventBus.getDefault().post(it)
+        }
     }
 
     override fun onActivityInject() {
@@ -40,5 +44,12 @@ class HomeActivity : BaseActivity(), BaseView {
 
         viewPager.adapter = pageAdapter
         tabs.setupWithViewPager(viewPager)
+    }
+
+    @Subscribe
+    fun onSearchClicked(view: View) {
+        val intent = Intent(this@HomeActivity, SearchActivity::class.java)
+        intent.putExtra("page", viewPager.currentItem)
+        startActivity(intent)
     }
 }

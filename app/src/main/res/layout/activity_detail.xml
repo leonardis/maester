@@ -26,8 +26,7 @@
         android:id="@+id/movieImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/test"
-        app:placeholderImage="@drawable/placeholder"/>
+        android:src="@drawable/test"/>
 
     <View
         android:id="@+id/view"
@@ -183,6 +182,7 @@
         android:background="@color/colorPrimary">
 
       <TextView
+          android:id="@+id/subListText"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
@@ -209,7 +209,8 @@
           android:layout_marginStart="16dp"
           android:orientation="horizontal"
           app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-          tools:listitem="@layout/simple_movie_item"/>
+          tools:listitem="@layout/simple_movie_item"
+          />
 
     </LinearLayout>
 
